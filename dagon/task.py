@@ -28,6 +28,7 @@ class TaskType(Enum):
     SLURM = "slurm"
     CLOUD = "cloud"
     DOCKER = "docker"
+    KUBERNETES = "kubernetes"
 
 
 # Different types os tasks and their module and class name
@@ -36,7 +37,8 @@ tasks_types = {
     TaskType.BATCH: ("dagon.batch", "Batch"),
     TaskType.CLOUD: ("dagon.remote", "CloudTask"),
     TaskType.DOCKER: ("dagon.docker_task", "DockerTask"),
-    TaskType.SLURM: ("dagon.batch", "Slurm")
+    TaskType.SLURM: ("dagon.batch", "Slurm"),
+    TaskType.KUBERNETES: ("dagon.kubernetes_task", "KubernetesTask")
 }
 
 
@@ -668,6 +670,11 @@ class Task(Thread):
                                                       keypath=self.keypath, ip=self.ip,
                                                       remove=self.remove, volume=self.volume,
                                                       transversal_workflow=self.transversal_workflow)
+                            
+                        elif type(self) == dagon.kubernetes_task.KubernetesTask:
+                            parallel_task = DagonTask(taskType, taskParallelName, cmd, image=self.image,
+                                                      namespace=self.namespace, remove=self.remove,
+                                                      transversal_workflow=self.transversal_workflow)    
 
                         self.workflow.add_task(parallel_task)
                         self.new_tasks.append(parallel_task)

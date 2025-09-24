@@ -1,0 +1,57 @@
+{
+  "host": "localhost",
+  "id": 0,
+  "name": "Taskflow-Demo-Docker",
+  "tasks": {
+    "Berlin": {
+      "command": "/bin/date",
+      "name": "Berlin",
+      "nexts": [
+        "Mosco"
+      ],
+      "prevs": [
+        "Tokio"
+      ],
+      "status": "READY",
+      "type": "dockertask",
+      "working_dir": null
+    },
+    "Mosco": {
+      "command": "cat workflow://Tokio/tokio.out",
+      "name": "Mosco",
+      "nexts": [],
+      "prevs": [
+        "Berlin",
+        "Nairobi"
+      ],
+      "status": "READY",
+      "type": "dockertask",
+      "working_dir": null
+    },
+    "Nairobi": {
+      "command": "/usr/bin/uptime",
+      "name": "Nairobi",
+      "nexts": [
+        "Mosco"
+      ],
+      "prevs": [
+        "Tokio"
+      ],
+      "status": "READY",
+      "type": "dockertask",
+      "working_dir": null
+    },
+    "Tokio": {
+      "command": "/bin/hostname >tokio.out",
+      "name": "Tokio",
+      "nexts": [
+        "Berlin",
+        "Nairobi"
+      ],
+      "prevs": [],
+      "status": "READY",
+      "type": "dockertask",
+      "working_dir": null
+    }
+  }
+}

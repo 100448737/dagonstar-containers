@@ -1,0 +1,70 @@
+{
+  "host": "localhost",
+  "id": 0,
+  "name": "Taskflow-Demo",
+  "tasks": {
+    "A": {
+      "command": "/bin/hostname > f_A.out",
+      "name": "A",
+      "nexts": [
+        "B",
+        "C"
+      ],
+      "prevs": [],
+      "status": "READY",
+      "type": "batch",
+      "working_dir": null
+    },
+    "B": {
+      "command": "/bin/date",
+      "name": "B",
+      "nexts": [
+        "D"
+      ],
+      "prevs": [
+        "A"
+      ],
+      "status": "READY",
+      "type": "batch",
+      "working_dir": null
+    },
+    "C": {
+      "command": "/usr/bin/uptime",
+      "name": "C",
+      "nexts": [
+        "D"
+      ],
+      "prevs": [
+        "A"
+      ],
+      "status": "READY",
+      "type": "batch",
+      "working_dir": null
+    },
+    "D": {
+      "command": "cat workflow:///A/f_A.out > f_D.out",
+      "name": "D",
+      "nexts": [
+        "E"
+      ],
+      "prevs": [
+        "B",
+        "C"
+      ],
+      "status": "READY",
+      "type": "batch",
+      "working_dir": null
+    },
+    "E": {
+      "command": "cat workflow:///D/f_D.out > f_E.out",
+      "name": "E",
+      "nexts": [],
+      "prevs": [
+        "D"
+      ],
+      "status": "READY",
+      "type": "batch",
+      "working_dir": null
+    }
+  }
+}

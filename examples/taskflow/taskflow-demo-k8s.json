@@ -1,0 +1,57 @@
+{
+  "host": "localhost",
+  "id": 0,
+  "name": "Taskflow-Demo-K8s",
+  "tasks": {
+    "Berlin": {
+      "command": "/bin/date",
+      "name": "Berlin",
+      "nexts": [
+        "Mosco"
+      ],
+      "prevs": [
+        "Tokio"
+      ],
+      "status": "READY",
+      "type": "kubernetestask",
+      "working_dir": null
+    },
+    "Mosco": {
+      "command": "/bin/uname -a",
+      "name": "Mosco",
+      "nexts": [],
+      "prevs": [
+        "Berlin",
+        "Nairobi"
+      ],
+      "status": "READY",
+      "type": "kubernetestask",
+      "working_dir": null
+    },
+    "Nairobi": {
+      "command": "/usr/bin/uptime",
+      "name": "Nairobi",
+      "nexts": [
+        "Mosco"
+      ],
+      "prevs": [
+        "Tokio"
+      ],
+      "status": "READY",
+      "type": "kubernetestask",
+      "working_dir": null
+    },
+    "Tokio": {
+      "command": "/bin/hostname",
+      "name": "Tokio",
+      "nexts": [
+        "Berlin",
+        "Nairobi"
+      ],
+      "prevs": [],
+      "status": "READY",
+      "type": "kubernetestask",
+      "working_dir": null
+    }
+  }
+}
