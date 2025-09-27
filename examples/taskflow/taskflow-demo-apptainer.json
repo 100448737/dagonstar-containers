@@ -1,0 +1,57 @@
+{
+  "host": "localhost",
+  "id": 0,
+  "name": "Taskflow-Demo-Apptainer",
+  "tasks": {
+    "Berlin": {
+      "command": "/bin/date && echo 'Task Berlin completed'",
+      "name": "Berlin",
+      "nexts": [
+        "Mosco"
+      ],
+      "prevs": [
+        "Tokio"
+      ],
+      "status": "READY",
+      "type": "apptainertask",
+      "working_dir": null
+    },
+    "Mosco": {
+      "command": "/bin/uname -a && echo 'Task Mosco completed'",
+      "name": "Mosco",
+      "nexts": [],
+      "prevs": [
+        "Berlin",
+        "Nairobi"
+      ],
+      "status": "READY",
+      "type": "apptainertask",
+      "working_dir": null
+    },
+    "Nairobi": {
+      "command": "/usr/bin/uptime && echo 'Task Nairobi completed'",
+      "name": "Nairobi",
+      "nexts": [
+        "Mosco"
+      ],
+      "prevs": [
+        "Tokio"
+      ],
+      "status": "READY",
+      "type": "apptainertask",
+      "working_dir": null
+    },
+    "Tokio": {
+      "command": "/bin/hostname && echo 'Task Tokio completed'",
+      "name": "Tokio",
+      "nexts": [
+        "Berlin",
+        "Nairobi"
+      ],
+      "prevs": [],
+      "status": "READY",
+      "type": "apptainertask",
+      "working_dir": null
+    }
+  }
+}

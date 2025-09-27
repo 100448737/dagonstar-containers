@@ -21,6 +21,7 @@ class TaskType(Enum):
     :cvar SLURM: Task executed using Slurm (local or remote)
     :cvar CLOUD: Task executed in a cloud instance (ec2, digital ocean and google cloud  tested with libcloud)
     :cvar DOCKER: Task executed on a docker container (local or remote)
+    :cvar APPTAINER: Task executed in an Apptainer container (HPC environments)
     """
 
     CHECKPOINT = "checkpoint"
@@ -29,6 +30,7 @@ class TaskType(Enum):
     CLOUD = "cloud"
     DOCKER = "docker"
     KUBERNETES = "kubernetes"
+    APPTAINER = "apptainer"
 
 
 # Different types os tasks and their module and class name
@@ -38,7 +40,8 @@ tasks_types = {
     TaskType.CLOUD: ("dagon.remote", "CloudTask"),
     TaskType.DOCKER: ("dagon.docker_task", "DockerTask"),
     TaskType.SLURM: ("dagon.batch", "Slurm"),
-    TaskType.KUBERNETES: ("dagon.kubernetes_task", "KubernetesTask")
+    TaskType.KUBERNETES: ("dagon.kubernetes_task", "KubernetesTask"),
+    TaskType.APPTAINER: ("dagon.apptainer_task", "ApptainerTask")
 }
 
 
@@ -675,6 +678,12 @@ class Task(Thread):
                             parallel_task = DagonTask(taskType, taskParallelName, cmd, image=self.image,
                                                       namespace=self.namespace, remove=self.remove,
                                                       transversal_workflow=self.transversal_workflow)    
+                        
+                        elif type(self) == dagon.apptainer_task.ApptainerTask:
+                            parallel_task = DagonTask(taskType, taskParallelName, cmd, image=self.image,
+                                                    bind_paths=self.bind_paths, overlay_size=self.overlay_size,
+                                                    remove=self.remove, tmp_dir=self.tmp_dir,
+                                                    transversal_workflow=self.transversal_workflow)
 
                         self.workflow.add_task(parallel_task)
                         self.new_tasks.append(parallel_task)
