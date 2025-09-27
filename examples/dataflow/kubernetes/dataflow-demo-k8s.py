@@ -49,8 +49,7 @@ if __name__ == '__main__':
     workflow.run()
 
     print("Workflow completado exitosamente")
-    print("El archivo f3.txt con los resultados finales está dentro del pod de la tarea D")
-    
+        
     # Dar tiempo para que se completen las operaciones de limpieza
     time.sleep(2)
     
